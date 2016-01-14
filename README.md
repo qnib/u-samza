@@ -88,6 +88,28 @@ yarn-resourcemanager             STARTING
 zookeeper                        STARTING
 root@700c7342280d:/#
 ```
+
+Logs (stdout/stderr that is) are forwarded to `/var/log/supervisor/`...
+```
+root@700c7342280d:/# ls -l /var/log/supervisor/
+total 100
+-rw------- 1 root root     0 Jan 14 15:43 consul-stderr---supervisor-ciYSJv.log
+-rw-r--r-- 1 root root  4162 Jan 14 15:57 consul.log
+-rw------- 1 root root     0 Jan 14 15:43 diamond-stderr---supervisor-dLO0_i.log
+-rw-r--r-- 1 root root   135 Jan 14 15:43 diamond.log
+-rw------- 1 root root     0 Jan 14 15:43 kafka-stderr---supervisor-kDDusa.log
+-rw-r--r-- 1 root root  9256 Jan 14 15:45 kafka.log
+-rw-r--r-- 1 root root  2134 Jan 14 15:43 supervisord.log
+-rw------- 1 root root     0 Jan 14 15:43 yarn-nodemanager-stderr---supervisor-CVb5Ms.log
+-rw-r--r-- 1 root root 26842 Jan 14 15:43 yarn-nodemanager.log
+-rw------- 1 root root     0 Jan 14 15:43 yarn-resourcemanager-stderr---supervisor-piJw0W.log
+-rw-r--r-- 1 root root 30730 Jan 14 15:53 yarn-resourcemanager.log
+-rw------- 1 root root     0 Jan 14 15:43 zookeeper-stderr---supervisor-PQHV1q.log
+-rw-r--r-- 1 root root  8616 Jan 14 15:45 zookeeper.log
+root@700c7342280d:/#
+```
+
+## Start the Job
 Either way, after all are up and running (for me more a gut feeling), we can deploy the job:
 ```
 root@700c7342280d:/# cd opt/hello-samza/
