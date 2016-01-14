@@ -5,6 +5,39 @@ Samza image using Ubuntu
 This approach tries to follow the steps to run the hello-samza tutorial...
 http://samza.apache.org/startup/hello-samza/0.10/
 
+
+## Build the image
+
+```
+$ docker build -t qnib/u-samza .
+Sending build context to Docker daemon 121.9 kB
+Step 1 : FROM qnib/u-terminal
+ ---> 27aff442ec8c
+Step 2 : RUN apt-get update &&     apt-get install -y openjdk-7-jdk
+ ---> Using cache
+ ---> 85e3b00aed5e
+Step 3 : ENV JAVA_HOME /usr/
+ ---> Using cache
+ ---> b07d2636b177
+Step 4 : RUN apt-get install -y git &&     git clone https://git.apache.org/samza-hello-samza.git /opt/hello-samza
+ ---> Using cache
+ ---> d2016b55d34b
+Step 5 : RUN cd /opt/hello-samza &&     ./bin/grid bootstrap
+ ---> Using cache
+ ---> 76db081f7a79
+Step 6 : RUN apt-get install -y maven
+ ---> Using cache
+ ---> 344478a68010
+Step 7 : RUN cd /opt/hello-samza &&     mvn clean package
+ ---> Using cache
+ ---> 3ebf37c3ec8b
+Step 8 : ADD etc/supervisord.d/kafka.ini etc/supervisord.d/yarn-nodemanager.ini etc/supervisord.d/yarn-resourcemanager.ini etc/supervisord.d/zookeeper.ini /etc/supervisord.d/
+ ---> Using cache
+ ---> b6d133c6eb10
+Successfully built b6d133c6eb10
+$
+```
+
 ## Error while installing
 
 The command given in the tutorial didn't work out:
