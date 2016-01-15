@@ -1,14 +1,15 @@
 FROM qnib/u-terminal
 
-RUN apt-get update && \
-    apt-get install -y openjdk-7-jdk
 ENV JAVA_HOME=/usr/
-RUN apt-get install -y git && \
-    git clone https://git.apache.org/samza-hello-samza.git /opt/hello-samza
-RUN cd /opt/hello-samza && \
-    ./bin/grid bootstrap
-RUN apt-get install -y maven
-RUN cd /opt/hello-samza && \
+RUN apt-get update && \
+    apt-get install -y openjdk-7-jdk maven git
+## Samza
+RUN git clone http://git-wip-us.apache.org/repos/asf/samza.git /opt/samza && \
+    cd /opt/samza && \
+    ./gradlew  publishToMavenLocal
+RUN git clone https://git.apache.org/samza-hello-samza.git /opt/hello-samza && \
+    cd /opt/hello-samza && \
+    ./bin/grid bootstrap && \
     mvn clean package
 ADD etc/supervisord.d/kafka.ini \
     etc/supervisord.d/yarn-nodemanager.ini \
