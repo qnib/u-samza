@@ -2,10 +2,10 @@ base:
     environment:
      - DC_NAME=dc1
      - COLLECT_METRICS=false
-     - FORWARD_TO_KAFKA=false
+     - FORWARD_TO_KAFKA=true
      - SKIP_PSWATCH=true
     dns: 127.0.0.1
     dns_search:
-     - node.consul
-     - service.consul
+     service.consul
+     node.consul
     privileged: true

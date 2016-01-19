@@ -81,7 +81,7 @@ samza:
     extends:
       file: base.yml
       service: base
-    image: qnib/u-samza:distributed
+    image: qnib/u-samza
     hostname: samza
     container_name: samza
     links:
@@ -90,5 +90,8 @@ samza:
      - 8042:8042
      - 8088:8088
     environment:
-     - SUPERVISOR_SKIP_SRV=zookeeper
+     - RUN_SERVER=false
+     - BOOTSTRAP_CONSUL=false
+     - SUPERVISOR_SKIP_SRV=zookeeper,kafka
+     - CONSUL_RM_SRV_CHECK=zookeeper,kafka
 
