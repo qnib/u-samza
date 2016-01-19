@@ -55,7 +55,7 @@ RUN rm -f /etc/consul.d/hdfs.json && \
 RUN sed -i'' -e 's/localhost:2181/zookeeper.service.consul:2181/' /opt/hello-samza/deploy/samza/config/wikipedia-feed.properties && \
     sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-feed.properties && \
     sed -i'' -e 's/localhost:2181/zookeeper.service.consul:2181/' /opt/hello-samza/deploy/samza/config/wikipedia-parser.properties && \
-    sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-parser.properties
+    sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-parser.properties && \
     sed -i'' -e 's/localhost:2181/zookeeper.service.consul:2181/' /opt/hello-samza/deploy/samza/config/wikipedia-stats.properties && \
     sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-stats.properties
 ADD opt/qnib/kafka/bin/kafka-server-start.sh /opt/qnib/kafka/bin/
