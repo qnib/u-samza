@@ -1,0 +1,24 @@
+{
+  "services": [
+    {
+        "id": "hdfs",
+        "name": "hdfs",
+        "tags": [],
+        "port": 50070,
+        "checks": [
+            {
+               "script": "echo Check for process 'namenode';ps -ef|grep -v grep|grep 'java -Dproc_namenode'",
+               "interval": "3s"
+            },
+            {
+               "script": "echo Check for process 'datanode';ps -ef|grep -v grep|grep 'java -Dproc_datanode'",
+               "interval": "3s"
+            },
+            {
+               "script": "echo Check for process 'secondarynamenode';ps -ef|grep -v grep|grep 'java -Dproc_secondarynamenode'",
+               "interval": "3s"
+            }
+       ]
+    }
+  ]
+}

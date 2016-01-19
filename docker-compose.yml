@@ -1,12 +1,94 @@
+consul:
+    extends:
+      file: base.yml
+      service: base
+    hostname: consul
+    container_name: consul
+    image: qnib/consul
+    environment:
+    - RUN_SERVER=true
+    - BOOTSTRAP_CONSUL=true
+    ports:
+    - "8500:8500"
+
+zookeeper:
+    extends:
+      file: base.yml
+      service: base
+    hostname: zookeeper
+    container_name: zookeeper
+    image: qnib/zookeeper
+    links:
+     - consul:consul
+
+zkui:
+    extends:
+      file: base.yml
+      service: base
+    hostname: zkui
+    container_name: zkui
+    image: qnib/zkui
+    links:
+    - consul:consul
+    ports:
+    - 9090:9090
+
+kafka:
+    extends:
+      file: base.yml
+      service: base
+    image: qnib/kafka
+    environment:
+     - BARE_HOST=kafka
+     - KAFKA_MIN_INSTANCES=1
+    hostname: kafka
+    container_name: kafka
+    links:
+     - zookeeper:zookeeper
+     - consul:consul
+
+kafka-manager:
+    extends:
+      file: base.yml
+      service: base
+    image: qnib/kafka-manager
+    hostname: kafka-manager
+    container_name: kafka-manager
+    environment:
+    - APPLICATION_SECRET=letmein
+    ports:
+    - 9000:9000
+    volumes:
+    - ./conf/:/kafka-manager-1.2.7/conf/
+    links:
+    - consul:consul
+    - samza:zookeeper
+
+kafka-monitor:
+    extends:
+      file: base.yml
+      service: base
+    image: qnib/kafka-monitor
+    hostname: kafka-monitor
+    container_name: kafka-monitor
+    links:
+    - consul:consul
+    - samza:kafka
+    ports:
+    - 8080:8080
+
 samza:
-    image: qnib/u-samza
+    extends:
+      file: base.yml
+      service: base
+    image: qnib/u-samza:distributed
     hostname: samza
     container_name: samza
-    environment:
-     - BOOTSTRAP_CONSUL=true
-     - RUN_SERVER=true
+    links:
+     - consul:consul
     ports:
-     - 8500:8500
      - 8042:8042
      - 8088:8088
+    environment:
+     - SUPERVISOR_SKIP_SRV=zookeeper
 

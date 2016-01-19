@@ -1,0 +1,14 @@
+{
+  "services": [
+    {
+        "id": "zookeeper",
+        "name": "zookeeper",
+        "tags": [],
+        "port": 2181,
+        "checks": [{
+            "script": "/opt/qnib/zookeeper/bin/check.sh",
+            "interval": "10s"
+        }]
+    }
+  ]
+}

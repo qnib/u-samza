@@ -1,0 +1,14 @@
+{
+  "services": [
+    {
+        "id": "kafka",
+        "name": "kafka",
+        "tags": [],
+        "port": 9092,
+        "checks": [{
+            "script": "/opt/qnib/kafka/bin/check_kafka.sh",
+            "interval": "10s"
+        }]
+    }
+  ]
+}

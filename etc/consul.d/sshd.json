@@ -1,0 +1,10 @@
+{
+  "service": {
+    "name": "ssh",
+    "port": 22,
+    "check": {
+      "script": "nmap 127.0.0.1 -PN -p ssh | grep open",
+      "interval": "10s"
+    }
+  }
+}
