@@ -52,8 +52,10 @@ ADD etc/supervisord.d/sshd.ini /etc/supervisord.d/
 ADD etc/supervisord.d/sshd.ini /etc/supervisord.d/
 RUN rm -f /etc/consul.d/hdfs.json && \
     cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
-RUN echo "sed -i'' -e 's/localhost:2181/zookeeper.service.consul:2181/' /opt/hello-samza/deploy/samza/config/wikipedia-feed.properties" >> /root/.bash_history && \
-    echo "sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-feed.properties" >> /root/.bash_history
 RUN sed -i'' -e 's/localhost:2181/zookeeper.service.consul:2181/' /opt/hello-samza/deploy/samza/config/wikipedia-feed.properties && \
-    sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-feed.properties
+    sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-feed.properties && \
+    sed -i'' -e 's/localhost:2181/zookeeper.service.consul:2181/' /opt/hello-samza/deploy/samza/config/wikipedia-parser.properties && \
+    sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-parser.properties
+    sed -i'' -e 's/localhost:2181/zookeeper.service.consul:2181/' /opt/hello-samza/deploy/samza/config/wikipedia-stats.properties && \
+    sed -i'' -e 's/localhost:9092/kafka.service.consul:9092/' /opt/hello-samza/deploy/samza/config/wikipedia-stats.properties
 ADD opt/qnib/kafka/bin/kafka-server-start.sh /opt/qnib/kafka/bin/
