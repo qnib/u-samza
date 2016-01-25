@@ -28,6 +28,8 @@ zkui:
     hostname: zkui
     container_name: zkui
     image: qnib/zkui
+    environment:
+     - COLLECT_METRICS=false
     links:
     - consul:consul
     ports:
